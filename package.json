@@ -1,0 +1,60 @@
+{
+	"name": "grails-commands-for-vscode",
+	"displayName": "Grails Commands for VSCode",
+	"description": "Making life easier for Grails Developers in VSCode",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.66.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:grails-commands-for-vscode.create-app",
+		"onCommand:grails-commands-for-vscode.run-app",
+		"onCommand:grails-commands-for-vscode.create-domain-class",
+		"onCommand:grails-commands-for-vscode.create-controller"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "grails-commands-for-vscode.create-app",
+				"category": "Grails Command",
+				"title": "Criar Aplicação (Create App)"
+			},
+			{
+				"command": "grails-commands-for-vscode.run-app",
+				"category": "Grails Command",
+				"title": "Executar Aplicação (Run App)"
+			},
+			{
+				"command": "grails-commands-for-vscode.create-domain-class",
+				"category": "Grails Command",
+				"title": "Criar Classe de Domínio (Create Domain Class)"
+			},
+			{
+				"command": "grails-commands-for-vscode.create-controller",
+				"category": "Grails Command",
+				"title": "Criar Controlador (Create Controller)"
+			}
+
+		]
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.66.0",
+		"@types/glob": "^7.2.0",
+		"@types/mocha": "^9.1.0",
+		"@types/node": "14.x",
+		"eslint": "^8.11.0",
+		"glob": "^7.2.0",
+		"mocha": "^9.2.2",
+		"typescript": "^4.5.5",
+		"@vscode/test-electron": "^2.1.3"
+	}
+}

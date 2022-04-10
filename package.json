@@ -10,35 +10,31 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:grails-commands-for-vscode.create-app",
-		"onCommand:grails-commands-for-vscode.run-app",
-		"onCommand:grails-commands-for-vscode.create-domain-class",
-		"onCommand:grails-commands-for-vscode.create-controller"
+		"*"
 	],
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "grails-commands-for-vscode.create-app",
-				"category": "Grails Command",
-				"title": "Criar Aplicação (Create App)"
+				"category": "Grails",
+				"title": "Create App"
 			},
 			{
 				"command": "grails-commands-for-vscode.run-app",
-				"category": "Grails Command",
-				"title": "Executar Aplicação (Run App)"
+				"category": "Grails",
+				"title": "Run App"
 			},
 			{
 				"command": "grails-commands-for-vscode.create-domain-class",
-				"category": "Grails Command",
-				"title": "Criar Classe de Domínio (Create Domain Class)"
+				"category": "Grails",
+				"title": "Create Domain Class"
 			},
 			{
 				"command": "grails-commands-for-vscode.create-controller",
-				"category": "Grails Command",
-				"title": "Criar Controlador (Create Controller)"
+				"category": "Grails",
+				"title": "Create Controller"
 			}
-
 		]
 	},
 	"scripts": {
@@ -47,14 +43,17 @@
 		"test": "node ./test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.66.0",
 		"@types/glob": "^7.2.0",
 		"@types/mocha": "^9.1.0",
 		"@types/node": "14.x",
+		"@types/vscode": "^1.66.0",
+		"@vscode/test-electron": "^2.1.3",
 		"eslint": "^8.11.0",
 		"glob": "^7.2.0",
 		"mocha": "^9.2.2",
-		"typescript": "^4.5.5",
-		"@vscode/test-electron": "^2.1.3"
+		"typescript": "^4.5.5"
+	},
+	"dependencies": {
+		"properties-reader": "^2.2.0"
 	}
 }

@@ -80,7 +80,7 @@ async function activate(context) {
 		('grails-commands-for-vscode.create-domain-class', function()
 			{
 				vscode.window.showInputBox(optionCreateDomainClass).then
-				{
+				(
 					domainName =>
 					{
 						if(domainName != null && domainName.length > 0)
@@ -92,7 +92,7 @@ async function activate(context) {
 							vscode.window.showInformationMessage(`The Domain Class '${domainName}' was created.`);
 						}
 					}
-				}
+				)
 			}
 		)
 	);
@@ -104,7 +104,7 @@ async function activate(context) {
 		('grails-commands-for-vscode.create-controller', function()
 			{
 				vscode.window.showInputBox(optionCreateController).then
-				{
+				(
 					controllerName =>
 					{
 						if(controllerName != null && controllerName.length > 0)
@@ -113,10 +113,10 @@ async function activate(context) {
 							let command = `grails create-controller ${controllerName}`;
 							terminal.sendText(command);
 							terminal.dispose;
-							vscode.window.showInformationMessage(`The Controller '${controllerName}' was created.`)
+							vscode.window.showInformationMessage(`The Controller '${controllerName}Controller' was created.`)
 						}
 					}
-				}
+				)
 			}
 		)
 	);

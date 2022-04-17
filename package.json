@@ -16,6 +16,11 @@
 	"contributes": {
 		"commands": [
 			{
+				"command": "grails-commands-for-vscode.teste",
+				"category": "Grails",
+				"title": "Testes Diversos"
+			},			
+			{
 				"command": "grails-commands-for-vscode.create-app",
 				"category": "Grails",
 				"title": "Create App"

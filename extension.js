@@ -13,11 +13,17 @@ const optionCreateController	= { placeHolder: "Controller Name"	, prompt: "Pleas
 let application_name = '';
 let grails_version 	 = '';
 let outputChannel;
+let outputFilter = '';
+let infoCatcher = '';
+let createCatcher = '';
+let urlCatcher = '';
+let statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
 
 async function activate(context) 
 {
 	console.log('Your extension "Grails Commands for VSCode" is now active!');
 
+	//Create a Output Channel for Grails
 	getOutputChannel();
 
 	/** Test */
@@ -83,7 +89,6 @@ async function activate(context)
 			)
 		})
 	);
-
 }
 
 function setApplicationProperties() {
@@ -97,9 +102,7 @@ function getWorkspaceDir() { return path.resolve(vscode.workspace.workspaceFolde
 
 function runApp(command) {
 	setApplicationProperties();
-	let outputFilter = '';
-	let infoCatcher = '';
-	let urlCatcher = '';
+	setStatusBarItem('init');
 	outputChannel.show();
 	let promise = new Promise(resolve => {
 		vscode.window.showInformationMessage(`Running App '${application_name}'...`);	
@@ -107,21 +110,43 @@ function runApp(command) {
 		result.stdout.on("data", (data) => {
 			outputFilter = data;
 			infoCatcher = outputFilter.match(/\w.+/gi);
-			if(infoCatcher != null) outputChannel.append(`${infoCatcher[0]}\n`);//console.log(infoCatcher[0]);
-
+			if(infoCatcher != null)outputChannel.append(`${infoCatcher[0]}\n`);
 			urlCatcher = outputFilter.match(/(http|https)?:\/\/.+/gi);
-			if(urlCatcher != null) vscode.env.openExternal(vscode.Uri.parse(urlCatcher[0]));
+			if(urlCatcher != null){
+				setStatusBarItem('running');
+				vscode.env.openExternal(vscode.Uri.parse(urlCatcher[0]));
+			}
 			resolve(); 
 		});
 	});
 	return promise;
 }
 
-function getOutputChannel(){
-  outputChannel = vscode.window.createOutputChannel(`Grails`);
+function getOutputChannel(){ outputChannel = vscode.window.createOutputChannel(`Grails`); }
+
+function destroyOutputChannel(){ outputChannel.dispose; }
+
+function setStatusBarItem(status){
+	if(status != 'dispose'){
+		if(status == 'init'){ 
+			statusBarItem.color = '#0400ff';
+			statusBarItem.text = `Performing Grails Application Init...`; 
+		}
+		else if(status == 'running'){
+			statusBarItem.color = '#00ff44';
+			statusBarItem.text = `Grails Application Running...`; 
+		}
+		else if(status == 'stopping'){
+			statusBarItem.color = '#ff0022';
+			statusBarItem.text = `Performing Grails Application Stop...`;
+		}
+		statusBarItem.show();
+	}else{
+		statusBarItem.hide();
+	}
 }
 
-function deactivate() { }
+function deactivate() { destroyOutputChannel(); }
 
 module.exports = {
 	activate,
